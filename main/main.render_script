@@ -74,16 +74,20 @@ function update(self)
 
     render.draw(self.tile_pred)
     render.draw(self.particle_pred)
-    render.draw_debug3d()
 
 
     -- render models
     --
-    render.enable_state(render.STATE_DEPTH_TEST)
+    render.set_blend_func(render.BLEND_SRC_ALPHA, render.BLEND_ONE_MINUS_SRC_ALPHA)
     render.enable_state(render.STATE_CULL_FACE)
+    render.enable_state(render.STATE_DEPTH_TEST)
+    render.set_depth_mask(true)
     render.draw(self.model_pred)
-    render.draw_debug3d()
 
+    -- debug rendering - physics debug, draw_line
+    render.disable_state(render.STATE_DEPTH_TEST)
+    render.disable_state(render.STATE_CULL_FACE)    
+    render.draw_debug3d()
 
     
     -- render GUI
